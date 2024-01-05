@@ -12,9 +12,9 @@ def rgb_control():
     # Open the JSON file and load its contents
     with open(file_path) as file:
         data = json.load(file)
-        gpio_red = data["gpio-red"]
-        gpio_green = data["gpio-green"]
-        gpio_blue = data["gpio-blue"]
+        gpio_red = data['rgbControl']['gpio-red']
+        gpio_green = data['rgbControl']['gpio-green']
+        gpio_blue = data['rgbControl']['gpio-blue']
 
     # Set up GPIO mode and pins
     GPIO.setmode(GPIO.BCM)

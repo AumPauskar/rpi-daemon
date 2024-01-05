@@ -1,0 +1,16 @@
+{
+    "fanControl":
+    {
+        "onTemp": 65,
+        "offTemp": 55,
+        "gpio": 17
+    },
+
+    "rgbControl":
+    {
+        "gpioRed": 17,
+        "gpioGreen": 27,
+        "gpiolue": 22
+    }
+
+}

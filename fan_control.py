@@ -6,9 +6,9 @@ def fan_control():
 
     with open('config.json') as json_data_file:
         data = json.load(json_data_file)
-        on_temp = data['on-temp']
-        off_temp = data['off-temp']
-        gpio = data['gpio']
+        on_temp = data['fanControl']['onTemp']
+        off_temp = data['fanControl']['offTemp']
+        gpio = data['fanControl']['gpio']
         print(on_temp, off_temp, gpio)
 
     GPIO.setmode(GPIO.BCM)
