@@ -1,2 +1,4 @@
 test/
 test.**
+api_key.json
+__pycache__/
