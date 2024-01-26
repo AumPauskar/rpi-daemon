@@ -3,7 +3,8 @@
     {
         "onTemp": 65,
         "offTemp": 55,
-        "gpio": 17
+        "gpio": 17,
+        "enable": 27
     },
 
     "rgbControl":

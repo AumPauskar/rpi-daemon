@@ -6,13 +6,21 @@ def fan_control():
 
     with open('config.json') as json_data_file:
         data = json.load(json_data_file)
-        on_temp = data['fanControl']['onTemp']
-        off_temp = data['fanControl']['offTemp']
-        gpio = data['fanControl']['gpio']
+        on_temp = data['fanControl']['onTemp'] # default 65
+        off_temp = data['fanControl']['offTemp'] # default 55
+        gpio = data['fanControl']['gpio'] # default 17
+        enable = data['fanControl']['enable']
         print(on_temp, off_temp, gpio)
 
     GPIO.setmode(GPIO.BCM)
+
+    # enabling the motor/enable pins
     GPIO.setup(gpio, GPIO.OUT)
+    GPIO.setup(enable, GPIO.OUT)
+
+    # Create a PWM object for the enable pin
+    pwm = GPIO.PWM(enable, 100)
+    pwm.start(100)
     fan_on = False
     while True:
         temp = subprocess.check_output("vcgencmd measure_temp", shell=True).decode('utf-8')
