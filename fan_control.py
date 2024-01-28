@@ -3,14 +3,21 @@ def fan_control():
     import time
     import RPi.GPIO as GPIO
     import json
+    import curses
 
+    def update_line(stdscr, text):
+        stdscr.addstr(0, 0, text)
+        stdscr.refresh()
+
+    stdscr = curses.initscr()
+    curses.noecho()  # Disable echoing of input characters
+    curses.cbreak()
     with open('config.json') as json_data_file:
         data = json.load(json_data_file)
         on_temp = data['fanControl']['onTemp'] # default 65
         off_temp = data['fanControl']['offTemp'] # default 55
         gpio = data['fanControl']['gpio'] # default 17
         enable = data['fanControl']['enable']
-        print(on_temp, off_temp, gpio)
 
     GPIO.setmode(GPIO.BCM)
 
@@ -33,12 +40,17 @@ def fan_control():
         
         if fan_on:
             GPIO.output(gpio, GPIO.HIGH)
-            print("Fan on: ", temp_value)
+            update_line(stdscr, f"Fan on: {temp_value}")
         else:
             GPIO.output(gpio, GPIO.LOW)
-            print("Fan off", temp_value)
-            
+            update_line(stdscr, f"Fan off: {temp_value}")
+
         time.sleep(1)
+
+    # resetting echo
+    curses.echo()
+    curses.nocbreak()
+    curses.endwin()
 	
 if __name__ == "__main__":
     fan_control()
