@@ -57,6 +57,12 @@ def fan_control():
         curses.echo()
         curses.nocbreak()
         curses.endwin()
+
+def get_temp():
+    import subprocess
+    temp = subprocess.check_output("vcgencmd measure_temp", shell=True).decode('utf-8')
+    temp_value = float(temp[5:9])
+    return str(temp_value)
 	
 if __name__ == "__main__":
     fan_control()
